@@ -35,6 +35,9 @@ private:
 	}
 
 public:
+	lct_lock_free_stack():head(){
+	}
+
 	~lct_lock_free_stack(){
 		while(pop().get() != nullptr);
 	}
