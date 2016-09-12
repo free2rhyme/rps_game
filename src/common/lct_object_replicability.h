@@ -3,12 +3,12 @@
 
 class lct_object_cloneable{
 public:
-	~lct_object_cloneable(){}
+	~lct_object_cloneable() noexcept(true) {}
 };
 
 class lct_object_uncopyable{
 public:
-	lct_object_uncopyable(){}
+	lct_object_uncopyable() noexcept(true) {}
 
 public:
 	lct_object_uncopyable(const lct_object_uncopyable&)					= delete;

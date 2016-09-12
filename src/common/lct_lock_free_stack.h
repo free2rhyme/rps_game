@@ -24,6 +24,7 @@ private:
 	};
 
 	std::atomic<counted_node_ptr> head;
+
 	void increase_head_count(counted_node_ptr& old_counter){
 		counted_node_ptr new_counter;
 		do{
@@ -42,7 +43,9 @@ public:
 		new_node.ptr = new node(data);
 		new_node.external_count = 1;
 		new_node.ptr->next = head.load(std::memory_order_relaxed);
-		while(!head.compare_exchange_wak(new_node.ptr->next, new node, std::memory_order_release, std::memory_order_relaxed));
+		while(!head.compare_exchange_weak(new_node.ptr->next, new_node, std::memory_order_release, std::memory_order_relaxed)){
+			new_node.ptr->next = head.load(std::memory_order_relaxed);
+		}
 	}
 
 	std::shared_ptr<T> pop(){
