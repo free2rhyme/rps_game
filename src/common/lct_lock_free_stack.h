@@ -43,9 +43,7 @@ public:
 		new_node.ptr = new node(data);
 		new_node.external_count = 1;
 		new_node.ptr->next = head.load(std::memory_order_relaxed);
-		while(!head.compare_exchange_weak(new_node.ptr->next, new_node, std::memory_order_release, std::memory_order_relaxed)){
-			new_node.ptr->next = head.load(std::memory_order_relaxed);
-		}
+		while(!head.compare_exchange_weak(new_node.ptr->next, new_node, std::memory_order_release, std::memory_order_relaxed));
 	}
 
 	std::shared_ptr<T> pop(){
