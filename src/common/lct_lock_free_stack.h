@@ -35,7 +35,7 @@ private:
 
 public:
 	~lct_lock_free_stack(){
-		while(pop());
+		while(pop().get() != nullptr);
 	}
 	void push(T const& data){
 		counted_node_ptr new_node;
