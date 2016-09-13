@@ -24,7 +24,7 @@ void lct_thread_pool_impl_t::init(){
 		m_workers.emplace_back(std::thread([this]{
 			while(m_running_flag){
 				lct_thread_pool_task_t	task;
-				if (lct_error_code_t::lct_error_code_successful == m_tasks_queue.dequeue(task)){
+				if (lct_error_code_t::lct_error_code_successful == this->m_tasks_queue.dequeue(task)){
 					task();
 				}
 			}
