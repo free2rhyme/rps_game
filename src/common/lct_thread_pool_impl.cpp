@@ -15,7 +15,13 @@ lct_thread_pool_impl_t::lct_thread_pool_impl_t(const uint32_t thread_count):
 }
 
 lct_thread_pool_impl_t::~lct_thread_pool_impl_t(){
+	m_running_flag = false;
 
+	m_tasks_queue.notify_all();
+
+	for(std::thread &worker: m_workers){
+		worker.join();
+	}
 }
 
 void lct_thread_pool_impl_t::init(){
@@ -38,5 +44,7 @@ void lct_thread_pool_impl_t::emplace_task(Callable&& func, Args&&... vargs){
 	m_tasks_queue.enqueue(task);
 }
 
-
+void lct_thread_pool_impl_t::shutdown(){
+	m_running_flag = false;
+}
 

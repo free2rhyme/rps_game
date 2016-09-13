@@ -15,9 +15,7 @@ lct_error_code_t lct_queue_t<T>::enqueue(const object_type& obj){
 		std::unique_lock<lct_mutex_t> guard(m_mutex);
 		is_empty = m_lct_queue_data.empty();
 		m_lct_queue_data.push(obj);
-	}
-	if(is_empty){
-		m_cond_var.notify_all();
+		m_cond_var.notify_one();
 	}
 	return lct_error_code_t::lct_error_code_successful;
 }
@@ -31,7 +29,7 @@ lct_error_code_t lct_queue_t<T>::enqueue(object_type&& obj){
 		m_lct_queue_data.push(obj);
 	}
 	if(is_empty){
-		m_cond_var.notify_all();
+		m_cond_var.notify_one();
 	}
 	return lct_error_code_t::lct_error_code_successful;
 }
@@ -66,4 +64,9 @@ lct_bool_t lct_queue_t<T>::empty() const{
 template <typename T>
 lct_uint32_t lct_queue_t<T>::size() const{
 	return m_lct_queue_data.size();
+}
+
+template <typename T>
+void lct_queue_t<T>::notify_all(){
+	m_cond_var.notify_all();
 }

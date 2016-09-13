@@ -18,7 +18,7 @@ class lct_thread_pool_impl_t;
 class lct_thread_pool_t:lct_object_uncopyable{
 public:
 	static lct_thread_pool_t* get_instance();
-	static void shutdown();
+	void shutdown();
 
 	template<typename Callable, typename... Args>
 	void emplace_task(Callable&& func, Args&&... vargs);

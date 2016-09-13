@@ -29,6 +29,7 @@ public:
 	lct_bool_t		empty() const;
 	lct_uint32_t	size() const;
 
+	void notify_all();
 private:
 	lct_uint32_t				m_waiting_time; // milliseconds
 	std::condition_variable		m_cond_var;

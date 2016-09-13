@@ -21,6 +21,8 @@ public:
 
 	template<typename Callable, typename... Args>
 	void emplace_task(Callable&& func, Args&&... vargs);
+
+	void shutdown();
 private:
 	std::vector<std::thread>		m_workers;
 	uint32_t						m_thread_count;

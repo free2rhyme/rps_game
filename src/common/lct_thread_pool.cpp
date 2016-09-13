@@ -42,3 +42,9 @@ template<typename Callable, typename... Args>
 void lct_thread_pool_t::emplace_task(Callable&& func, Args&&... vargs){
 	m_thread_pool_impl_ptr->emplace_task(func, vargs...);
 }
+
+void lct_thread_pool_t::shutdown(){
+	if(m_instanced_flag){
+		m_thread_pool_impl_ptr->shutdown();
+	}
+}
