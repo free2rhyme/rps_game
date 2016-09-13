@@ -22,13 +22,13 @@ rps_socket_manager_t::~rps_socket_manager_t(){
 rps_socket_manager_t* rps_socket_manager_t::get_instance(){
 	if(m_instanced_flag == false){
 		std::call_once(m_once_flag, init_instance);
-		m_instanced_flag = true;
 	}
 	return m_ptr_instance;
 }
 
 void rps_socket_manager_t::init_instance(){
 	m_ptr_instance	= new rps_socket_manager_t();
+	m_instanced_flag = true;
 }
 
 lct_error_code_t rps_socket_manager_t::init(const lct_uint16_t local_port_number, const lct_uint32_t local_ip_address){
