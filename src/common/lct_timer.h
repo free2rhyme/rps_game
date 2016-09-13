@@ -1,9 +1,18 @@
+/*
+ * lct_timer.h
+ *
+ *  Created on: Jan 12, 2016
+ *      Author: Ralph.Liu
+ *       Email: wlc2rhyme@gmail.com
+ */
+
 #ifndef __LCT_TIMER_H__
 #define __LCT_TIMER_H__
 
 #include <functional>
 #include <chrono>
 #include <future>
+#include "lct_common_define.h"
 
 class lct_timer_t{
 public:
