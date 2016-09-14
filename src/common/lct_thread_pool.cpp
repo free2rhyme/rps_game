@@ -7,7 +7,6 @@
  */
 
 #include "lct_thread_pool.h"
-#include "lct_thread_pool_impl.h"
 
 lct_bool_t				lct_thread_pool_t::m_instanced_flag		= false;
 std::once_flag			lct_thread_pool_t::m_once_flag;
@@ -36,11 +35,6 @@ lct_thread_pool_t* lct_thread_pool_t::get_instance(){
 		std::call_once(m_once_flag, init_instance);
 	}
 	return m_ptr_instance;
-}
-
-template<typename Callable, typename... Args>
-void lct_thread_pool_t::emplace_task(Callable&& func, Args&&... vargs){
-	m_thread_pool_impl_ptr->emplace_task(func, vargs...);
 }
 
 void lct_thread_pool_t::shutdown(){

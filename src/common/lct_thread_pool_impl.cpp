@@ -38,12 +38,6 @@ void lct_thread_pool_impl_t::init(){
 	}
 }
 
-template<typename Callable, typename... Args>
-void lct_thread_pool_impl_t::emplace_task(Callable&& func, Args&&... vargs){
-    std::function<typename std::result_of<Callable(Args...)>::type()> task(std::bind(std::forward<Callable>(func), std::forward<Args>(vargs)...));
-	m_tasks_queue.enqueue(task);
-}
-
 void lct_thread_pool_impl_t::shutdown(){
 	m_running_flag = false;
 }

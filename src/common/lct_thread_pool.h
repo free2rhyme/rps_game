@@ -34,4 +34,6 @@ private:
 	static void init_instance();
 };
 
+#include "lct_thread_pool.hpp"
+
 #endif /* SRC_COMMON_LCT_THREAD_POOL_H_ */
