@@ -7,7 +7,15 @@
  */
 
 template<typename Callable, typename... Args>
-void lct_thread_pool_impl_t::emplace_task(Callable&& func, Args&&... vargs){
-    std::function<typename std::result_of<Callable(Args...)>::type()> task(std::bind(std::forward<Callable>(func), std::forward<Args>(vargs)...));
-	m_tasks_queue.enqueue(task);
+std::future<typename std::result_of<Callable(Args...)>::type>
+lct_thread_pool_impl_t::emplace_task(Callable&& func, Args&&... vargs){
+    //std::function<typename std::result_of<Callable(Args...)>::type()> task(std::bind(std::forward<Callable>(func), std::forward<Args>(vargs)...));
+
+	using result_type = typename std::result_of<Callable(Args...)>::type;
+
+	std::packaged_task<result_type()> task(std::bind(std::forward<Callable>(func), std::forward<Args>(vargs)...));
+
+	std::future<result_type> fur = task.get_future();
+	m_tasks_queue.enqueue(std::move(task));
+	return fur;
 }

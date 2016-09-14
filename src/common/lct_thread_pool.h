@@ -11,6 +11,7 @@
 
 #include "lct_common_define.h"
 #include "lct_object_replicability.h"
+#include <future>
 #include <mutex>
 
 class lct_thread_pool_impl_t;
@@ -21,7 +22,8 @@ public:
 	void shutdown();
 
 	template<typename Callable, typename... Args>
-	void emplace_task(Callable&& func, Args&&... vargs);
+	std::future<typename std::result_of<Callable(Args...)>::type>
+	emplace_task(Callable&& func, Args&&... vargs);
 private:
 	lct_thread_pool_impl_t* 		m_thread_pool_impl_ptr;
 	static lct_thread_pool_t*		m_ptr_instance;

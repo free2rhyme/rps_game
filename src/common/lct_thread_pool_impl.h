@@ -12,6 +12,7 @@
 #include "lct_common_define.h"
 #include "lct_object_replicability.h"
 #include <vector>
+#include <future>
 #include "lct_queue.h"
 
 class lct_thread_pool_impl_t:lct_object_uncopyable{
@@ -20,7 +21,8 @@ public:
 	~lct_thread_pool_impl_t();
 
 	template<typename Callable, typename... Args>
-	void emplace_task(Callable&& func, Args&&... vargs);
+	std::future<typename std::result_of<Callable(Args...)>::type>
+	emplace_task(Callable&& func, Args&&... vargs);
 
 	void shutdown();
 private:
