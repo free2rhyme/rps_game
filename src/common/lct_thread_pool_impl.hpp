@@ -7,8 +7,7 @@
  */
 
 template<typename Callable, typename... Args>
-std::future<typename std::result_of<Callable(Args...)>::type>
-lct_thread_pool_impl_t::emplace_task(Callable&& func, Args&&... vargs){
+auto lct_thread_pool_impl_t::emplace_task(Callable&& func, Args&&... vargs)->std::future<typename std::result_of<Callable(Args...)>::type>{
     //std::function<typename std::result_of<Callable(Args...)>::type()> task(std::bind(std::forward<Callable>(func), std::forward<Args>(vargs)...));
 
 	using result_type = typename std::result_of<Callable(Args...)>::type;

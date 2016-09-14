@@ -21,8 +21,7 @@ public:
 	~lct_thread_pool_impl_t();
 
 	template<typename Callable, typename... Args>
-	std::future<typename std::result_of<Callable(Args...)>::type>
-	emplace_task(Callable&& func, Args&&... vargs);
+	auto emplace_task(Callable&& func, Args&&... vargs)->std::future<typename std::result_of<Callable(Args...)>::type>;
 
 	void shutdown();
 private:

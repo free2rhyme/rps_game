@@ -22,8 +22,7 @@ public:
 	void shutdown();
 
 	template<typename Callable, typename... Args>
-	std::future<typename std::result_of<Callable(Args...)>::type>
-	emplace_task(Callable&& func, Args&&... vargs);
+	auto emplace_task(Callable&& func, Args&&... vargs)->std::future<typename std::result_of<Callable(Args...)>::type>;
 private:
 	lct_thread_pool_impl_t* 		m_thread_pool_impl_ptr;
 	static lct_thread_pool_t*		m_ptr_instance;

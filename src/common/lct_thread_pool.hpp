@@ -9,8 +9,7 @@
 #include "lct_thread_pool_impl.h"
 
 template<typename Callable, typename... Args>
-std::future<typename std::result_of<Callable(Args...)>::type>
-lct_thread_pool_t::emplace_task(Callable&& func, Args&&... vargs){
+auto lct_thread_pool_t::emplace_task(Callable&& func, Args&&... vargs)->std::future<typename std::result_of<Callable(Args...)>::type>{
 	return m_thread_pool_impl_ptr->emplace_task(func, vargs...);
 }
 
